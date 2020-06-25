@@ -1,0 +1,7 @@
+#docker installation
+============================================
+yum install docker  # This command install docker in redhat family but if you are using debian family like ubuntu cmd is (apt install docker)
+systemctl start docker # This command start the service of docker
+systemctl enable docker # This command  automatically up the docker service when machine start
+
+
