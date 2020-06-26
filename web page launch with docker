@@ -1,0 +1,57 @@
+#docker installation
+============================================
+
+#Install docker
+
+yum install docker  # This command install docker in redhat family
+or
+apt install docker # This command install docker in redhat family
+
+#Service start and enable 
+
+systemctl start docker # This command start the service of docker
+systemctl enable docker # This command  automatically up the docker service when machine start
+
+#Download Docker Image
+
+#docker pull <image_name>
+docker pull centos
+
+#Run container
+
+#doker run -it --name <container_name> -p <port_number><service_port_number> <image_name>
+docker run -it --name aman -p 80:80 httpd # when we run this it run the container and you go automatically in container 
+or 
+docker run -itd --name aman centos #when we run this it launch the containter in background 
+
+#come outside the container 
+exit #when we e=run this command you come outside the container but it shutdown the container
+or
+Ctrl + p
+Ctrl + q #By this tow key you come outside the container and container did not stop
+
+Now its time to launch web page
+
+Install git 
+
+yum install git #for redhat family
+or
+apt install git # for debian family
+
+Now download the webpage from anywhere for sample here it is given
+
+#git clone <url>
+git clone https://github.com/amanpahariya/html-page.git
+
+Now Transfer the directory of website in container
+
+docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+
+docker cp html-page web:/var/www/html/
+
+for access the website 
+
+http://<ip address>:80
+
+*********************************************************************Now your website is hosted in container*********************************************************************
+
