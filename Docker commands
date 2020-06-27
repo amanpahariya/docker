@@ -1,0 +1,66 @@
+#Docker commands
+
+========================================================================
+
+Docker Installation
+-------------------------------------------
+
+yum install docker
+or 
+apt install docker
+========================================================================
+
+Service restart and enable
+-------------------------------------------
+
+systemctl start  docker
+systemctl enable docker
+systemctl status docker #Check status is running or not
+
+=========================================================================
+
+Docker commands
+
+-----------------------------------------
+--> docker --version
+
+--> docker pull <image-name>   #this command pull the image(JEOS :- JUST ENOUGH OPERATING SYSTEM) from the hub.docker.com
+        
+        Some example of Image_name :- 
+                                   -centos
+                                   -ubuntu
+                                   -httpd
+                                   -django
+
+--> docker images #this command display all the images in you machine
+
+--> docker push <your-image-name> #this command is used to push your images on hun.docker.com but you have to make your account on hub.docker.com
+
+--> docker run -it --name <container_name> <image_name> # this command launch the container and you go inside the docker after run this command
+   docker run -it --name web httpd
+   or
+   docker run -itd --name <container_name> <image_name> # this commmand run the container in background
+   docker run -itd --name web httpd
+   or
+   docker run -itd --name <container_name> -p outside-port number:inside-port number <image_name> #this command is used for portforwarding. this command is used when you have to access your container by public ip or your main machine ip
+   docker run -it --name web -p 1234:80 httpd # oustide-port number you give any but unique in your machine and inside-port number is depend on which service you are running inside the container httpd run 80 
+   
+--> docker ps #this command is used to check all running container
+
+--> docker ps -a #this command is used to check all running container and exited container
+
+--> docker stop <container-name> #this command is used to stop the container
+
+-->docker start <container-name> #this command is used to start the container
+
+==================================================================================
+
+
+--> exit #this used for when you are inside the container but this command also stop the container
+
+--> Cntrl + p Cntrl + q #this is you to exit the container without stop it 
+
+==================================================================================================================================================================================
+   
+   
+   
