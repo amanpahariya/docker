@@ -1,0 +1,145 @@
+# install docker
+# start and enable the servies 
+
+#if you are taking your own repo the add one file which name is Dockerfile make sure spell is same
+# Type inside in this file
+
+FROM httpd
+LABEL description="Continuous Integration, Continuous Delivery"
+MAINTAINER DevOps Interns
+EXPOSE 80
+COPY ./webapp /usr/local/apache2/htdocs/
+
+
+# install git 
+git clone https://github.com/amanpahariya/html-page.git
+
+#Now go in the directory where is Dockerfile is 
+#run command
+#docker build -t <image-name> .
+docker built -t amanpahariya .
+
+#Now check the image is create or not by command
+docker images
+
+#Now push the image on hub.docker.com make sure you have account on it.
+#before push you have  to login from your server run command
+# if you have already image on hub.docker then skip this step
+docker login
+          -username of hub.docker
+          -password of hub.docker
+#now push image
+#docker push <image-name>
+docker push amanpahariya
+
+#after push you can also check it on website
+
+================================================================================================================================================================================
+                                                                              DOCKER SWARM COMMANDS
+================================================================================================================================================================================
+
+!/bin/bash
+Docker Swarm
+--------------------------------------
+1. What is Docker Swarm
+2. Why to use it
+3. How to create and manage Docker Swarm
+4. Create service on docker swarm
+5. Scalling services up and down (Horizontal)
+6. Features
+
+=========================================================================
+What is DockerSwarm
+=========================================================================
+A swarm is a group of machines that are running Docker and joined into a cluster.
+Docker Swarm is a clustering and scheduling tool for Docker containers.
+WIth Swarm, IT administrators and developers can establish and manage a cluster of Docker nodes asx a single virtual system.
+
+Docker Swarm is a tool for Container Orchestration.
+
+Example:
+        You have 200 Containers
+You need to do:
+        - Health check
+        - Ensure all containers are up on every system
+        - Scaling the containers up or down depending on the load
+        - Adding updates /changes to all the containers
+
+#Orchestration - Managing and controlling multiple docker containers as a single service
+#Tools available - Docker Swarm, Kubernetes, Apache Measos
+
+
+=========================================================================================
+        Install docker swarm
+=========================================================================================
+========================================================================================================
+                Create DOcker Machines (Manager and Worker )
+========================================================================================================
+                                                                                                                  
+Pre-requisites
+
+In this case, we will need the following:
+
+
+Centos -1       manager                 docker  install
+Centos -2       worker1                 docker  install
+(standalone (master and worker both one machine_
+
+=====================
+#In manager machine pull your image from hub.docker
+#docker pull <image-name>:<tag-name>
+docker pull amanpahariya:latest
+
+
+step1: docker swarm init 
+# This command give you this
+------------------------------
+Swarm initialized: current node (bvz81updecsj6wjz393c09vti) is now a manager.
+
+step 2 :-To add a worker to this swarm, run the following command:
+
+    docker swarm join \
+    --token SWMTKN-1-3pu6hszjas19xyp7ghgosyx9k8atbfcr8p2is99znpy26u2lkl-1awxwuwd3z9j1z3puu7rcgdbx \
+    172.17.0.2:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+------------------------------
+
+# Now copy this and paste in your worker server make sure you have already installed docker in workers 
+---------------------------
+ --token SWMTKN-1-3pu6hszjas19xyp7ghgosyx9k8atbfcr8p2is99znpy26u2lkl-1awxwuwd3z9j1z3puu7rcgdbx \
+    172.17.0.2:2377
+--------------------------- 
+========================================================================================================
+Create services
+========================================================================================================
+# (port forward -p [hostport:containerport]
+ step 3 :- docker service create --replicas 10 -p 7070:80 --name app1 mitrasonu/app1 # this command distribute all the container in all servers 
+docker service ls                                                         # this command is used to check your all service 
+docker service ps servicename                                             # this command is used to check particular service
+docker node ps app                                                        # this command is used to check all he workers 
+
+
+========================================
+Scal up and down services
+========================================
+
+#docker service scale servicename=2
+#docker services ls
+#docker service scale app1=4
+#docker service ls
+#docker service scale app1=2
+
+========================================
+upgrade and rollback services
+========================================
+docker service ls
+docker node ps
+docker service update --image mitrasonu/app2 app1
+docker node ps
+dokcer service ls
+dokcer service rollback app1
+----------------------------------------------
+you have to must use 3 steps for use docker swarm
+----------------------------------------------
+                                                  
